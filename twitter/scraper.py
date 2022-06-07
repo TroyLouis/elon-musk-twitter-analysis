@@ -50,7 +50,7 @@ def df_to_csv(df):
 
 
 def main():
-    client = tweepy.Client(bearer_token=bearer)
+    client = tweepy.Client(bearer_token=BEARER)
     username = 'elonmusk'
     twitter_response = get_user_id(client, username)
     id = twitter_response.data.id
