@@ -3,18 +3,13 @@ import requests
 import os
 import pandas as pd
 
-# global tokens
-api_key = os.environ.get('Twitter_API_Key')
-api_secret = os.environ.get('Twitter_API_Secret')
-access_token = os.environ.get('Twitter_Access_Token')
-access_secret = os.environ.get('Twitter_Access_Secret')
-bearer = os.environ.get('bearer_token')
+BEARER = os.environ.get('bearer_token')
 
 def create_client():
     '''
     Returns an authenticated client
     '''
-    client = tweepy.Client( bearer_token=bearer,
+    client = tweepy.Client( bearer_token=BEARER,
                         return_type=requests.Response,
                         wait_on_rate_limit=True)
     return client
@@ -39,10 +34,18 @@ def paginator_users_tweets(authenticated_client, id):
     return paginator
 
 def create_df(data, *args):
+    '''
+    :param data: List of lists to be turned into a dataframe
+    :param args: Column names of df
+    :return: complete dataframe
+    '''
     df = pd.DataFrame(data, columns=args)
     return df
 
 def df_to_csv(df):
+    '''
+    Takes in a dataframe and saves it as a csv in current file location
+    '''
     df.to_csv('twitter.csv', encoding='utf-8', index=False)
 
 
