@@ -1,5 +1,4 @@
 import tweepy
-import requests
 import os
 import pandas as pd
 
