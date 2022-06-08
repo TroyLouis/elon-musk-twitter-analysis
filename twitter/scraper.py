@@ -5,6 +5,14 @@ import pandas as pd
 
 BEARER = os.environ.get('bearer_token')
 
+class Scraper():
+    def __init__(self, client):
+        self.client = tweepy.Client( bearer_token=BEARER,
+                        return_type=requests.Response,
+                        wait_on_rate_limit=True)
+
+
+
 def create_client():
     '''
     Returns an authenticated client
