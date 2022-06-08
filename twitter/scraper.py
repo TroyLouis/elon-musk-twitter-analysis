@@ -7,6 +7,10 @@ BEARER = os.environ.get('bearer_token')
 
 class Scraper():
     def __init__(self, client):
+        '''
+        Class Constructor to initialize object
+        :param client: Authenticated Twitter client object
+        '''
         self.client = client
 
     def get_user_id(self, username):
@@ -73,6 +77,7 @@ class Scraper():
 
 def main():
     client = tweepy.Client(bearer_token=BEARER)
+    print(client)
     scraper = Scraper(client)
     username = 'elonmusk'
     user_id = scraper.get_user_id(username)
