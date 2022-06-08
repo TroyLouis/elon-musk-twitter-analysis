@@ -34,21 +34,35 @@ def tweets_to_list(data,column_name):
     return word_salad_string
 
 def create_word_cloud(wordcloud_words):
-    wordcloud = WordCloud().generate(wordcloud_words)
+    #list of words that won't be included
+    stopwords = ['and','it','with','co', 't', 'i', 'https', 'to', 'of','a','that', 'is','the','for','in','if','this']
+    wordcloud = WordCloud(stopwords=stopwords).generate(wordcloud_words)
     plt.imshow(wordcloud, interpolation='bilinear')
     plt.axis("off")
     plt.show()
     st.pyplot()
+    return wordcloud
 
+def create_table(data):
+    df = pd.DataFrame(data, columns=['Word','Count'])
+    return df
 
 def main():
     st.title("Word Analysis of @elonmusk")
     st.subheader("Word Cloud")
 
     df_data = load_data(3200)
-    tweet_words = tweets_to_list(df_data, 'tweet text')
-    create_word_cloud(tweet_words)
 
+    tweet_words = tweets_to_list(df_data, 'tweet text')
+    wordcloud = create_word_cloud(tweet_words)
+    st.write("**Prepositions and some common words have been removed. ")
+
+    word_count = []
+    for word in wordcloud.words_.keys():
+        word_count.append([word,tweet_words.count(word)])
+
+    table_df = create_table(word_count)
+    st.table(table_df)
 
 if __name__ == "__main__":
     main()
