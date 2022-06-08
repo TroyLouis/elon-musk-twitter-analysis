@@ -4,3 +4,5 @@
 <li>Visualize the tweets with Streamlit.</li>
 </ol>
 
+![Screenshot](ScreenShot.png)
+
